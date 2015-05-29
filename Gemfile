@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem 'api-client', git: 'git@git.apptamers.com:repohub/api-client.git'
 gem 'commander'
+gem 'settingslogic'
 
 group :development do
   gem "bundler", "~> 1.0"

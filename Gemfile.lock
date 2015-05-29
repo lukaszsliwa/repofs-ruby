@@ -1,6 +1,6 @@
 GIT
   remote: git@git.apptamers.com:repohub/api-client.git
-  revision: 8a518a16716ae13a7f6d0e726ab714861f231e1f
+  revision: 16fd305cc8d52528cd9ac9948dba505b0adb2f9d
   specs:
     api-client (1.0.0)
       activeresource (~> 4.0.0)
@@ -54,7 +54,7 @@ GEM
     json (1.8.2)
     jwt (1.5.0)
     mini_portile (0.6.2)
-    minitest (5.6.1)
+    minitest (5.7.0)
     multi_json (1.11.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -72,6 +72,7 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
+    settingslogic (2.0.9)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -84,3 +85,4 @@ DEPENDENCIES
   bundler (~> 1.0)
   commander
   jeweler (~> 2.0.1)
+  settingslogic
