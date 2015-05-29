@@ -13,6 +13,7 @@ end
 require 'rake'
 
 require 'jeweler'
+require './lib/rfs'
 
 Jeweler::Tasks.new do |gem|
   gem.name = "rfs"
