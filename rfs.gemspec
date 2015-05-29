@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
+    "bin/repofs",
     "bin/rfs",
     "lib/rfs.rb",
     "lib/rfs/cli.rb",
