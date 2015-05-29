@@ -12,8 +12,7 @@ class Rfs::Command::Setup
     say "Please provide your credentials.\n"
 
     @login = ask "What's your login? " while @login.blank?
-    @authorization_key = password("What's your authorization key? ", '*') while @authorization_key.blank?
-    @secret_token      = password("What's your secret token? ", '*')      while @secret_token.blank?
+    @token = password("What's your API token? ", '*') while @token.blank?
     @host  = ask "What's your repofs domain? (i.e.: git.example.org) " while @host.blank?
 
     File.open("#{Dir.home}/.repofs", 'w') do |f|
@@ -21,9 +20,7 @@ class Rfs::Command::Setup
       f.write "  version: '#{Rfs::VERSION}'\n"
       f.write "  host:    '#{@host}'\n"
       f.write "  login:   '#{@login}'\n"
-      f.write "  credentials:\n"
-      f.write "    key:      '#{@authorization_key}'\n"
-      f.write "    secret:   '#{@secret_token}'\n"
+      f.write "  token:   '#{@token}'\n"
     end
   end
 end

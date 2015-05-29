@@ -1,6 +1,6 @@
 GIT
   remote: git@git.apptamers.com:repohub/api-client.git
-  revision: 16fd305cc8d52528cd9ac9948dba505b0adb2f9d
+  revision: fa9cf43b1a7b7056f58082400879e396ac1213f0
   specs:
     api-client (1.0.0)
       activeresource (~> 4.0.0)

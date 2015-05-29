@@ -18,5 +18,9 @@ class Rfs::Command::Base
     else
       say errors.full_messages.join(".\n")
     end
+  rescue ActiveResource::ResourceNotFound
+    say "Object not found. Please check the given argument."
+  rescue ActiveResource::UnauthorizedAccess
+    say "Unauthorized Access Error. Please check your credentials and try again."
   end
 end
