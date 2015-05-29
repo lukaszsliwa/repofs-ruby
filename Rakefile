@@ -23,6 +23,7 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Provides possibility to manage the repositories}
   gem.email = "lukasz.sliwa@apptamers.com"
   gem.authors = ["Łukasz Śliwa"]
+  gem.executables = ['rfs', 'repofs']
   gem.version = Rfs::VERSION
 end
 Jeweler::RubygemsDotOrgTasks.new

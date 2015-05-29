@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.date = "2015-05-29"
   s.description = "Provides possibility to manage the repositories"
   s.email = "lukasz.sliwa@apptamers.com"
-  s.executables = ["rfs"]
+  s.executables = ["rfs", "repofs"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
     "lib/rfs/command/space.rb",
     "lib/rfs/configuration.rb",
     "lib/rfs/settings.rb",
+    "rfs.gemspec",
     "test/helper.rb",
     "test/test_rfs.rb"
   ]

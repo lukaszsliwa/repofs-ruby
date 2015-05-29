@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.push File.expand_path('../../lib', __FILE__)
+
+require 'rubygems'
+require 'commander/import'
+
+require 'rfs'
+require 'rfs/configuration'
+require 'rfs/cli'
