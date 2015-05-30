@@ -2,7 +2,7 @@ class Rfs::Command::Repository < Rfs::Command::Base
   attr_accessor :name, :handle, :space_id
 
   validates :action, inclusion: {in: %w(all create delete developers), allow_blank: true }
-  validates :handle, presence: {if: -> { %w(create delete developers).include?(self.action) } }
+  validates :handle, format: { with: /\A[a-z0-9][a-z0-9\-]+[a-z0-9]\Z/ }, presence: true, if: -> { %w(create delete developers).include?(self.action) }
 
   def self.execute(args, options)
     action, handle_with_space = args[0], args[1]

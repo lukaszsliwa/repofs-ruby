@@ -14,9 +14,11 @@ class Rfs::Command::Base
 
   def save
     if valid?
-      execute
+      if (errors = execute.try(:errors)).present?
+        say errors.full_messages.join(".\n")
+      end
     else
-      say errors.full_messages.join(".\n")
+      say self.errors.full_messages.join(".\n")
     end
   rescue ActiveResource::ResourceNotFound
     say "Object not found. Please check the given argument."

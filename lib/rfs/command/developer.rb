@@ -1,8 +1,8 @@
 class Rfs::Command::Developer < Rfs::Command::Base
   attr_accessor :login, :email, :space_id, :repository_id
 
-  validates :email, presence: {if: -> { self.action == 'create' }}
-  validates :login, presence: {if: -> { %w(create delete allow deny).include?(self.action) }}
+  validates :email, presence: true, if: -> { self.action == 'create' }
+  validates :login, format: { with: /\A[a-z0-9][a-z0-9\-]+[a-z0-9]\Z/ }, presence: true, if: -> { %w(create delete allow deny).include?(self.action) }
 
   def self.execute(args, options)
     items = (args[2] || '').split '/'
