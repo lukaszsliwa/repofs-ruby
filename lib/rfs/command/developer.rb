@@ -1,19 +1,32 @@
 class Rfs::Command::Developer < Rfs::Command::Base
-  attr_accessor :login, :email, :repository_id
+  attr_accessor :login, :email, :space_id, :repository_id
 
   validates :email, presence: {if: -> { self.action == 'create' }}
   validates :login, presence: {if: -> { %w(create delete allow deny).include?(self.action) }}
 
   def self.execute(args, options)
-    Rfs::Command::Developer.new(action: args[0], login: args[1], email: args[2], repository_id: args[2]).save
+    items = (args[2] || '').split '/'
+    if items.size == 2
+      space_id, repository_id = items[0], items[1]
+    elsif items.size == 1
+      space_id, repository_id = nil, items[0]
+    elsif items.size > 2
+      space_id, repository_id = items[0], items[1..(items.size - 1)].join('/')
+    else
+      space_id, repository_id = nil, nil
+    end
+    Rfs::Command::Developer.new(action: args[0], login: args[1], email: args[2], space_id: space_id, repository_id: repository_id).save
   end
 
   def all
     developers = Api::Client::Developer.all
+    admins_count = 0
     developers.each do |developer|
-      printf "%-20s (%s)\n", developer.login, developer.email
+      star = developer.admin ? '*' : ' '
+      admins_count += 1 if developer.admin
+      printf "%s %-20s (%s)\n", star, developer.login, developer.email
     end
-    say "\n#{developers.size} developer(s)\n"
+    say "\n#{developers.size} developer(s)   #{admins_count} admin(s)\n"
   end
 
   def create
@@ -25,10 +38,10 @@ class Rfs::Command::Developer < Rfs::Command::Base
   end
 
   def allow
-    Api::Client::Developer.allow login, repository_id
+    Api::Client::Developer.allow login, space_id, repository_id
   end
 
   def deny
-    Api::Client::Developer.deny login, repository_id
+    Api::Client::Developer.deny login, space_id, repository_id
   end
 end

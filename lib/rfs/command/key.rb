@@ -1,30 +1,36 @@
 class Rfs::Command::Key < Rfs::Command::Base
-  attr_accessor :id
+  attr_accessor :id, :extra
 
-  validates :id, presence: {if: -> { %w(upload delete).include?(self.action) }}
+  validates :id, presence: {if: -> { %w(upload show rename delete).include?(self.action) }}
 
   def self.execute(args, options)
-    Rfs::Command::Key.new(action: args[0], id: args[1]).save
+    Rfs::Command::Key.new(action: args[0], id: args[1], extra: args[2]).save
   end
 
   def all
-    keys = Api::Client::Key.all(params: {developer_id: ENV['REPOFS_LOGIN'] })
+    keys = Api::Client::Key.all
     keys.each do |key|
-      say "# Developer: #{ENV['REPOFS_LOGIN']} | Id: #{key.id} | Date: #{key.created_at.to_date}\n"
-      say "#{key.content}\n"
+      printf "%-40s (%s)\n", key.token, key.created_at.to_datetime.strftime("%Y-%m-%d %H:%M:%S")
     end
     say "\n#{keys.size} key(s)\n"
   end
 
+  def show
+    key = Api::Client::Key.find id
+    say key.content
+  end
+
   def upload
-    if File.exists?(id)
-      key = Api::Client::Key.new(content: File.read(id))
-      key.prefix_options[:developer_id] = ENV['REPOFS_LOGIN']
-      key.save
-    end
+    Api::Client::Key.create(content: File.read(id)) if File.exists?(id)
+  end
+
+  def rename
+    Api::Client::Key.put id, token: extra
+  rescue ActiveResource::ResourceInvalid => e
+    say "The given token `#{extra}` is invalid."
   end
 
   def delete
-    Api::Client::Key.delete id, developer_id: ENV['REPOFS_LOGIN']
+    Api::Client::Key.delete id
   end
 end

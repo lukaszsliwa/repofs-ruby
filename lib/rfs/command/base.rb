@@ -22,5 +22,7 @@ class Rfs::Command::Base
     say "Object not found. Please check the given argument."
   rescue ActiveResource::UnauthorizedAccess
     say "Unauthorized Access Error. Please check your credentials and try again."
+  rescue ActiveResource::ForbiddenAccess
+    say "You are not allowed to do this operation."
   end
 end

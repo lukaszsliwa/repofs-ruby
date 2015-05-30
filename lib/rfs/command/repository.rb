@@ -1,8 +1,8 @@
 class Rfs::Command::Repository < Rfs::Command::Base
   attr_accessor :name, :handle, :space_id
 
-  validates :action, inclusion: {in: %w(all create delete), allow_blank: true }
-  validates :handle, presence: {if: -> { %w(create delete).include?(self.action) } }
+  validates :action, inclusion: {in: %w(all create delete developers), allow_blank: true }
+  validates :handle, presence: {if: -> { %w(create delete developers).include?(self.action) } }
 
   def self.execute(args, options)
     action, handle_with_space = args[0], args[1]
@@ -26,6 +26,17 @@ class Rfs::Command::Repository < Rfs::Command::Base
       printf "%-#{spaces + 10}s (%s@%s:%s)\n", repository.handle_with_space, ENV['REPOFS_LOGIN'], ENV['REPOFS_HOST'], repository.path
     end
     say "\n#{repositories.size} repositories\n"
+  end
+
+  def developers
+    repository = Api::Client::Repository.find handle
+    repository_developers = repository.users
+    spaces = repository_developers.map {|developer| developer.login.length }.max
+    repository_developers.each do |developer|
+      star = developer.admin ? '*' : ' '
+      printf "%s %-#{spaces + 10}s\n", star, developer.login
+    end
+    say "\n#{repository_developers.size} developer(s) in #{handle}\n"
   end
 
   def create
