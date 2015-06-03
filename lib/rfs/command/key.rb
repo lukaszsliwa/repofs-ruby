@@ -1,7 +1,7 @@
 class Rfs::Command::Key < Rfs::Command::Base
   attr_accessor :id, :extra
 
-  validates :id, format: { with: /\A[a-z0-9][a-z0-9\-]+[a-z0-9]\Z/ }, presence: {if: -> { %w(upload show rename delete).include?(self.action) }}
+  validates :id, format: { with: /\A[a-z0-9][a-z0-9\-]+[a-z0-9]\Z/ }, presence: true, if: -> { %w(upload show rename delete).include?(self.action) }
 
   def self.execute(args, options)
     Rfs::Command::Key.new(action: args[0], id: args[1], extra: args[2]).save

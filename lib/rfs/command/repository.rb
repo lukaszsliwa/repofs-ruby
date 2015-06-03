@@ -1,5 +1,5 @@
 class Rfs::Command::Repository < Rfs::Command::Base
-  attr_accessor :name, :handle, :space_id
+  attr_accessor :name, :handle, :space_id, :allow_me
 
   validates :action, inclusion: {in: %w(all create delete developers), allow_blank: true }
   validates :handle, format: { with: /\A[a-z0-9][a-z0-9\-]+[a-z0-9]\Z/ }, presence: true, if: -> { %w(create delete developers).include?(self.action) }
@@ -16,14 +16,19 @@ class Rfs::Command::Repository < Rfs::Command::Base
     else
       space_id, handle = nil, nil
     end
-    Rfs::Command::Repository.new(action: action, name: name, handle: handle, space_id: space_id).save
+    Rfs::Command::Repository.new(action: action, name: name, handle: handle, space_id: space_id, allow_me: options.allow_me).save
   end
 
   def all
     repositories = Api::Client::Repository.all
     spaces = repositories.map {|repository| repository.handle.length }.max
     repositories.each do |repository|
-      printf "%-#{spaces + 10}s (%s@%s:%s)\n", repository.handle_with_space, ENV['REPOFS_LOGIN'], ENV['REPOFS_HOST'], repository.path
+      if repository.allowed
+        description = "%{login}@%{host}:%{path}" % {login: ENV['REPOFS_LOGIN'], host: ENV['REPOFS_HOST'], path: repository.path}
+      else
+        description = "Not allowed"
+      end
+      printf "%-#{spaces + 10}s (%s)\n", repository.handle_with_space, description
     end
     say "\n#{repositories.size} repositories\n"
   end
@@ -40,7 +45,10 @@ class Rfs::Command::Repository < Rfs::Command::Base
   end
 
   def create
-    Api::Client::Repository.create(handle: handle, name: name, space_id: space_id)
+    repository = Api::Client::Repository.create(handle: handle, name: name, space_id: space_id)
+    if allow_me
+      Api::Client::Developer.allow ENV['REPOFS_LOGIN'], repository.space_id, repository.handle
+    end
   end
 
   def delete

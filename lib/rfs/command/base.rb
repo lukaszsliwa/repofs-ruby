@@ -26,5 +26,7 @@ class Rfs::Command::Base
     say "Unauthorized Access Error. Please check your credentials and try again."
   rescue ActiveResource::ForbiddenAccess
     say "You are not allowed to do this operation."
+  rescue ActiveResource::ServerError => e
+    say e.message
   end
 end

@@ -25,6 +25,7 @@ Commander.configure do
     c.example 'List all repositories', '$ rfs repository'
     c.example 'Create new repository in the repofs space', '$ rfs repository create repofs/app'
     c.example 'Delete an example app repository from the repofs space', '$ rfs repository delete repofs/app'
+    c.option '--allow-me', '', 'Adds me to the repository during the repository creation'
     c.action do |args, options|
       Rfs::Command::Repository.execute(args, options)
     end
