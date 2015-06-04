@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["\u{141}ukasz \u{15a}liwa"]
-  s.date = "2015-05-29"
+  s.date = "2015-06-04"
   s.description = "Provides possibility to manage the repositories"
   s.email = "lukasz.sliwa@apptamers.com"
   s.executables = ["rfs", "repofs"]
