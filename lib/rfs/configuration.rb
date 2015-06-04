@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'api-client'
+
 if Rfs::Command::Setup.done?
   ENV['REPOFS_LOGIN']  ||= Rfs::Settings.login
   ENV['REPOFS_TOKEN'] ||= Rfs::Settings.token

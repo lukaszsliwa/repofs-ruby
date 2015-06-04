@@ -1,8 +1,8 @@
 source "http://rubygems.org"
 
-gem 'api-client', git: 'git@git.apptamers.com:repohub/api-client.git'
-gem 'commander'
-gem 'settingslogic'
+gem 'repofs-api-client', '~> 1.0.0'
+gem 'commander', '~> 4.3.4'
+gem 'settingslogic', '~> 2.0.9'
 
 group :development do
   gem "bundler", "~> 1.0"

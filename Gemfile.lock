@@ -1,11 +1,3 @@
-GIT
-  remote: git@git.apptamers.com:repohub/api-client.git
-  revision: 9d1bd3b0fcfcfd4c5923adae82525386a2a0be2e
-  specs:
-    api-client (1.0.0)
-      activeresource (~> 4.0.0)
-      activesupport
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -72,6 +64,9 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
+    repofs-api-client (1.0.0)
+      activeresource (~> 4.0.0)
+      activesupport
     settingslogic (2.0.9)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
@@ -81,8 +76,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  api-client!
   bundler (~> 1.0)
-  commander
+  commander (~> 4.3.4)
   jeweler (~> 2.0.1)
-  settingslogic
+  repofs-api-client (~> 1.0.0)
+  settingslogic (~> 2.0.9)

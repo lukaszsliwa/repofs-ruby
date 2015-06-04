@@ -25,5 +25,9 @@ Jeweler::Tasks.new do |gem|
   gem.authors = ["Łukasz Śliwa"]
   gem.executables = ['rfs', 'repofs']
   gem.version = Rfs::VERSION
+  # gem.add_runtime_dependency 'api-client'
+  # gem.add_runtime_dependency 'commander'
+  # gem.add_runtime_dependency 'settingslogic'
+  # gem.add_development_dependency 'jeweler'
 end
 Jeweler::RubygemsDotOrgTasks.new
