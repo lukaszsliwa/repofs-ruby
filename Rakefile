@@ -16,7 +16,7 @@ require 'jeweler'
 require './lib/rfs'
 
 Jeweler::Tasks.new do |gem|
-  gem.name = "rfs"
+  gem.name = "repofs"
   gem.homepage = "http://git.apptamers.com/repohub/rfs"
   gem.license = "MIT"
   gem.summary = %Q{RepoFS CLI}

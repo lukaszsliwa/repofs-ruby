@@ -1,6 +1,6 @@
 = rfs
 
-Description goes here.
+RepoFS CLI for managing repositories, developers, keys and work spaces.
 
 == Contributing to rfs
  
