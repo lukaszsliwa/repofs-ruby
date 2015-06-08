@@ -17,7 +17,7 @@ require './lib/rfs'
 
 Jeweler::Tasks.new do |gem|
   gem.name = "repofs"
-  gem.homepage = "http://git.apptamers.com/repohub/rfs"
+  gem.homepage = "http://repofs.com"
   gem.license = "MIT"
   gem.summary = %Q{RepoFS CLI}
   gem.description = %Q{Provides possibility to manage the repositories}
@@ -25,9 +25,5 @@ Jeweler::Tasks.new do |gem|
   gem.authors = ["Łukasz Śliwa"]
   gem.executables = ['rfs', 'repofs']
   gem.version = Rfs::VERSION
-  # gem.add_runtime_dependency 'api-client'
-  # gem.add_runtime_dependency 'commander'
-  # gem.add_runtime_dependency 'settingslogic'
-  # gem.add_development_dependency 'jeweler'
 end
 Jeweler::RubygemsDotOrgTasks.new

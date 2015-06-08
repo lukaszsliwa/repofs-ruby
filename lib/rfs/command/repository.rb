@@ -35,7 +35,7 @@ class Rfs::Command::Repository < Rfs::Command::Base
 
   def developers
     repository = Api::Client::Repository.find handle
-    repository_developers = repository.users
+    repository_developers = repository.users.map { |hash| OpenStruct.new hash }
     spaces = repository_developers.map {|developer| developer.login.length }.max
     repository_developers.each do |developer|
       star = developer.admin ? '*' : ' '
@@ -45,9 +45,9 @@ class Rfs::Command::Repository < Rfs::Command::Base
   end
 
   def create
-    repository = Api::Client::Repository.create(handle: handle, name: name, space_id: space_id)
+    Api::Client::Repository.create(handle: handle, name: name, space_id: space_id)
     if allow_me
-      Api::Client::Developer.allow ENV['REPOFS_LOGIN'], repository.space_id, repository.handle
+      Api::Client::Developer.allow ENV['REPOFS_LOGIN'], space_id, handle
     end
   end
 

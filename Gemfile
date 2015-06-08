@@ -1,6 +1,9 @@
 source "http://rubygems.org"
 
-gem 'repofs-api-client', '~> 1.0.0'
+gem 'activemodel', '~> 4.2.1'
+gem 'activesupport', '~> 4.2.1'
+
+gem 'repofs-api-client', '~> 1.0.2'
 gem 'commander', '~> 4.3.4'
 gem 'settingslogic', '~> 2.0.9'
 

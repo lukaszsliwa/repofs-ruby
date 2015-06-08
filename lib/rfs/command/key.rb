@@ -1,7 +1,8 @@
 class Rfs::Command::Key < Rfs::Command::Base
   attr_accessor :id, :extra
 
-  validates :id, format: { with: /\A[a-z0-9][a-z0-9\-]+[a-z0-9]\Z/ }, presence: true, if: -> { %w(upload show rename delete).include?(self.action) }
+  validates :id, format: { with: /\A[a-zA-Z0-9\-\_\/\~\.]+\Z/ }, presence: true, if: -> { self.action == 'upload' }
+  validates :id, format: { with: /\A[a-z0-9][a-z0-9\-]+[a-z0-9]\Z/ }, presence: true, if: -> { %w(show rename delete).include?(self.action) }
 
   def self.execute(args, options)
     Rfs::Command::Key.new(action: args[0], id: args[1], extra: args[2]).save
@@ -10,7 +11,7 @@ class Rfs::Command::Key < Rfs::Command::Base
   def all
     keys = Api::Client::Key.all
     keys.each do |key|
-      printf "%-40s (%s)\n", key.token, key.created_at.to_datetime.strftime("%Y-%m-%d %H:%M:%S")
+      printf "%-40s (%s)\n", key.token, DateTime.parse(key.created_at).strftime("%Y-%m-%d %H:%M:%S")
     end
     say "\n#{keys.size} key(s)\n"
   end
@@ -26,8 +27,6 @@ class Rfs::Command::Key < Rfs::Command::Base
 
   def rename
     Api::Client::Key.put id, token: extra
-  rescue ActiveResource::ResourceInvalid => e
-    say "The given token `#{extra}` is invalid."
   end
 
   def delete
