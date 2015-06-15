@@ -40,6 +40,7 @@ Commander.configure do
     c.summary = 'Manage developers'
     c.description = 'Provides possibility to display, allow, deny, create and delete developers'
     c.example 'List all developers',  '$ rfs developer'
+    c.example 'List all developers of space/repo repository',  '$ rfs developers all [space/repo]'
     c.example 'Create new developer', '$ rfs developer create [login] [e-mail]'
     c.example 'Delete a developer',   '$ rfs developer delete [login]'
     c.example 'Permit a developer to read and write a repository', '$ rfs developer allow [login] [repository]'

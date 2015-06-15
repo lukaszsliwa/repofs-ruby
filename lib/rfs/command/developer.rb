@@ -19,10 +19,11 @@ class Rfs::Command::Developer < Rfs::Command::Base
   end
 
   def all
-    developers = Api::Client::Developer.all
+    space_handle, repository_id = (login || '').split('/')
+    developers = Api::Client::Developer.all(space_handle: space_handle, repository_id: repository_id)
     admins_count = 0
     developers.each do |developer|
-      star = developer.admin ? '*' : ' '
+      star = developer.admin ? '#' : '*'
       admins_count += 1 if developer.admin
       printf "%s %-20s (%s)\n", star, developer.login, developer.email
     end
@@ -38,10 +39,10 @@ class Rfs::Command::Developer < Rfs::Command::Base
   end
 
   def allow
-    Api::Client::Developer.allow login, space_id, repository_id
+    Api::Client::Developer.allow login, [space_id, repository_id].join('/')
   end
 
   def deny
-    Api::Client::Developer.deny login, space_id, repository_id
+    Api::Client::Developer.deny login, [space_id, repository_id].join('/')
   end
 end
