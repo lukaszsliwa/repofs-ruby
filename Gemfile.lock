@@ -63,11 +63,12 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
-    repofs-api-client (1.1.7)
+    repofs-api-client (1.1.8)
       activemodel
       activesupport
       crack (~> 0.4.2)
       httparty (~> 0.13.1)
+      oauth2
     safe_yaml (1.0.4)
     settingslogic (2.0.9)
     thread_safe (0.3.5)
@@ -83,5 +84,5 @@ DEPENDENCIES
   bundler (~> 1.0)
   commander (~> 4.3.4)
   jeweler (~> 2.0.1)
-  repofs-api-client (~> 1.1.7)
+  repofs-api-client (~> 1.1.8)
   settingslogic (~> 2.0.9)
