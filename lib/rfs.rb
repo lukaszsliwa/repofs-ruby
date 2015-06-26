@@ -3,7 +3,7 @@ require 'active_model'
 require 'api-client'
 
 module Rfs
-  VERSION = '1.0.3'
+  VERSION = '1.0.4'
   extend ActiveSupport::Autoload
 
   autoload :Settings, 'rfs/settings'
